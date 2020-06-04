@@ -15,7 +15,14 @@ export default class AddFolder extends Component {
          folderName
       })
    }
-
+   componentDidMount(){
+      fetch('http://localhost:9090/folders', {
+         method: 'GET',
+         headers: {
+            'content-type': 'application/json'
+         }
+      }).then(res => console.log(res.json()))
+   }
    render() {
 
       return(

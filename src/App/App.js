@@ -29,7 +29,7 @@ class App extends Component {
         var uniqid = require('uniqid');
         const folderArr = folderName.split(' ');
         const formattedFolder = folderArr.join('-');
-        const folder = { 'id': {uniqid}, 'name': formattedFolder }
+        const folder = { 'id': `${uniqid()}`, 'name': formattedFolder }
         console.log(folder)
         fetch(`http://localhost:9090/folders`, {
         method: 'POST',
