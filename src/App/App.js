@@ -27,9 +27,10 @@ class App extends Component {
 
     handleSubmit(folderName) {
         const folderArr = folderName.split(' ');
-        const folder = folderArr.join('-');
+        const formattedFolder = folderArr.join('-');
+        const folder = { 'id': '0000', 'name': formattedFolder }
         console.log(folder)
-        fetch(`http://localhost:9090/folders/`, {
+        fetch(`http://localhost:9090/folders`, {
         method: 'POST',
         body: JSON.stringify(folder),
         headers: {
