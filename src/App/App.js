@@ -20,6 +20,10 @@ class App extends Component {
         folders: []
     };
 
+    handleSubmit(folderName) {
+        console.log(folderName)
+    }
+
     componentDidMount() {
         // fake date loading from API call
         setTimeout(() => this.setState(dummyStore), 600);
@@ -49,10 +53,15 @@ class App extends Component {
                         const {noteId} = routeProps.match.params;
                         const note = findNote(notes, noteId) || {};
                         const folder = findFolder(folders, note.folderId);
-                        return <NotePageNav {...routeProps} folder={folder} />;
+                        return <NotePageNav {...routeProps} folder={folder} />
                     }}
                 />
-                <Route path="/add-folder"  component={AddFolder} />
+                <Route 
+                    path="/add-folder" 
+                    render={() => <AddFolder 
+                    handleSubmit={this.handleSubmit} />
+                }
+                />
                 <Route path="/add-note" component={NotePageNav} />
             </>
         );

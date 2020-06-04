@@ -2,35 +2,35 @@ import React, { Component } from 'react';
 import NotePageNav from '../NotePageNav/NotePageNav';
 
 export default class AddFolder extends Component {
-   constructor(props) {
-      super(props);
-      this.state = {
-         name: ' '
-      }
-   }
-   handleSubmit(event) {
-      event.preventDefault();
-      const name=this.name.current.value;
-      console.log(this.state.name)
-  }
-   componentDidMount() {
+   state={}
 
+   handleCreateFolder = () => {
+      const { folderName } = this.state;
+      this.props.handleSubmit(folderName);
    }
+
+   onFolderNameChange = ({target}) => {
+      const {value: folderName} = target;
+      this.setState({
+         folderName
+      })
+   }
+
    render() {
 
       return(
          <div className='note-page-container'>
          <NotePageNav />
-         <form className='add-folder-form' 
-            onSubmit={this.props.handleSubmit} >
+         <form className='add-folder-form'>
             <label htmlFor='folder-name-input'>Folder Name: <span>&emsp;</span></label>
             <input 
-               id='folder-name-input'
-               type ='text' 
-               placeholder='Folder Name' 
-               defaultValue={this.state.name} 
-               onSubmit={e=>this.handleSubmit(e)} />
-            <button type='submit'>Submit</button>
+            onChange={e => {this.onFolderNameChange(e)}}
+            id='folder-name-input'
+            type ='text' 
+            name='folderName'
+            placeholder='Folder Name' 
+            ref={this.nameInput}/><br />
+            <button type='button' onClick={this.handleCreateFolder}>Submit</button>
          </form>
          </div>
       )
