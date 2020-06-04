@@ -10,7 +10,11 @@ import dummyStore from '../dummy-store';
 import {getNotesForFolder, findNote, findFolder} from '../notes-helpers';
 import './App.css';
 
-class App extends Component {
+class App extends Component {   
+    constructor(props) {
+    super(props);
+    this.nameInput = React.createRef();
+ }
     state = {
         notes: [],
         folders: []
@@ -21,6 +25,12 @@ class App extends Component {
         setTimeout(() => this.setState(dummyStore), 600);
     }
 
+    handleSubmit(event) {
+        event.preventDefault();
+        const name=this.nameInput.current.value;
+        console.log(this.state.name)
+    }
+    
     renderNavRoutes() {
         const {notes, folders} = this.state;
         return (
@@ -48,7 +58,8 @@ class App extends Component {
                         return <NotePageNav {...routeProps} folder={folder} />;
                     }}
                 />
-                <Route path="/add-folder" component={AddFolder} />
+                <Route path="/add-folder" 
+                handleSubmit={e=>this.handleSubmit(e)} component={AddFolder} />
                 <Route path="/add-note" component={NotePageNav} />
             </>
         );
