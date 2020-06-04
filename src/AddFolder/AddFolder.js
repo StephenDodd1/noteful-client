@@ -19,19 +19,18 @@ export default class AddFolder extends Component {
    render() {
 
       return(
-         <div className='note-page-container'>
-         <NotePageNav />
-         <form className='add-folder-form'>
-            <label htmlFor='folder-name-input'>Folder Name: <span>&emsp;</span></label>
-            <input 
-            onChange={e => {this.onFolderNameChange(e)}}
-            id='folder-name-input'
-            type ='text' 
-            name='folderName'
-            placeholder='Folder Name' 
-            ref={this.nameInput}/><br />
-            <button type='button' onClick={this.handleCreateFolder}>Submit</button>
-         </form>
+         <div className='folder-page-container'>
+            <NotePageNav />
+            <form className='add-folder-form' onSubmit={this.handleCreateFolder}>
+               <label htmlFor='folder-name-input'>Folder Name: <span>&emsp;</span></label>
+               <input 
+               onChange={e => {this.onFolderNameChange(e)}}
+               id='folder-name-input'
+               type ='text' 
+               name='folderName'
+               placeholder='Folder Name' /><br />
+               <button type='button' onClick={this.handleCreateFolder}>Submit</button>
+            </form>
          </div>
       )
    }

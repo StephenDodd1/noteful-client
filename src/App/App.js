@@ -5,7 +5,8 @@ import NoteListNav from '../NoteListNav/NoteListNav';
 import NotePageNav from '../NotePageNav/NotePageNav';
 import NoteListMain from '../NoteListMain/NoteListMain';
 import NotePageMain from '../NotePageMain/NotePageMain';
-import AddFolder from '../AddFolder/AddFolder'
+import AddFolder from '../AddFolder/AddFolder';
+import AddNote from '../AddNote/AddNote';
 import dummyStore from '../dummy-store';
 import {getNotesForFolder, findNote, findFolder} from '../notes-helpers';
 import './App.css';
@@ -20,6 +21,10 @@ class App extends Component {
         folders: []
     };
 
+    handleNoteSubmit(noteFolder, noteName, noteContent) {
+        console.log(noteName,'is in', noteFolder, 'and has content', noteContent)
+    }
+    
     handleSubmit(folderName) {
         console.log(folderName)
     }
@@ -47,6 +52,7 @@ class App extends Component {
                         )}
                     />
                 ))}
+
                 <Route
                     path="/note/:noteId"
                     render={routeProps => {
@@ -56,13 +62,19 @@ class App extends Component {
                         return <NotePageNav {...routeProps} folder={folder} />
                     }}
                 />
+
                 <Route 
                     path="/add-folder" 
                     render={() => <AddFolder 
                     handleSubmit={this.handleSubmit} />
                 }
                 />
-                <Route path="/add-note" component={NotePageNav} />
+
+                <Route path="/add-note" 
+                    render={() => <AddNote
+                    handleNoteSubmit={this.handleNoteSubmit} />
+                }
+                />
             </>
         );
     }

@@ -1,20 +1,62 @@
 import React, { Component } from 'react';
+import NotePageNav from '../NotePageNav/NotePageNav'
 
 export default class AddNote extends Component {
    state = {};
 
    handleCreateNote = () => {
-      const { noteName } = this.state;
-      this.props.handleSubmit(noteName);
+      const { noteFolder, noteName, noteContent } = this.state;
+      this.props.handleNoteSubmit(noteFolder, noteName, noteContent);
    }
 
-   onNoteNameChange = () => {
+   onFolderSelect = ({target}) => {
+      const { value: noteFolder } = target;
+      this.setState({
+         noteFolder
+      })
+   }
 
+   onNoteNameChange = ({target}) => {
+      const { value: noteName } = target;
+      this.setState({
+         noteName
+      })
+   }
+
+   onNoteContentChange = ({target}) => {
+      const { value: noteContent } = target;
+      this.setState({
+         noteContent
+      })
    }
 
    render() {
+      //const options = a map function to get folder names
       return(
-         <></>
+         <div className='note-page-container'>
+            <NotePageNav />
+            <form>
+               <select name='noteFolder'>
+                  <option>ABCDEFG</option>
+                  {/*options*/}
+               </select>
+               <input 
+               id='note-name-input' 
+               type='text' 
+               name='noteName'
+               onChange={e => this.onNoteNameChange(e)}
+               />
+               <input 
+               id='note-content-input' 
+               type='text' 
+               name='noteContent'
+               onChange={e => this.onNoteContentChange(e)}
+               />
+               <button type='button' onClick = {this.handleCreateNote}>
+                  Submit
+               </button>
+            </form>
+         </div>
       )
    }
 }
