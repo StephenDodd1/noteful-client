@@ -6,6 +6,19 @@ export default class AddNote extends Component {
 
    handleCreateNote = () => {
       const { noteFolder, noteName, noteContent } = this.state;
+      if ( noteName ===' ') {
+         for(let i = 0; i < 100; i++) {
+            if(this.props.notes[i].name === `newNote${i}`){
+               continue;
+            }
+            if (!this.props.notes[`newNote${i}`]) {
+               console.log(`newNote${i}`)
+               this.setState({
+                  noteName: `newNote${i}`
+               })
+            }
+         }
+      }
       this.props.handleNoteSubmit(noteFolder, noteName, noteContent);
    }
 
@@ -31,6 +44,7 @@ export default class AddNote extends Component {
    }
 
    render() {
+      console.log(this.props.names)
       //const options = a map function to get folder names
       return(
          <div className='note-page-container'>

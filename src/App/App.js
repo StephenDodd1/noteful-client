@@ -24,9 +24,19 @@ class App extends Component {
     handleNoteSubmit(noteFolder, noteName, noteContent) {
         console.log(noteName,'is in', noteFolder, 'and has content', noteContent)
     }
-    
+
     handleSubmit(folderName) {
-        console.log(folderName)
+        const folderArr = folderName.split(' ');
+        const folder = folderArr.join('-');
+        console.log(folder)
+        fetch(`http://localhost:9090/folders/`, {
+        method: 'POST',
+        body: JSON.stringify(folder),
+        headers: {
+        'content-type': 'application/json'
+        }
+    }
+        ).then(res => console.log(res.json()))
     }
 
     componentDidMount() {
