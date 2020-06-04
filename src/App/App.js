@@ -24,12 +24,6 @@ class App extends Component {
         // fake date loading from API call
         setTimeout(() => this.setState(dummyStore), 600);
     }
-
-    handleSubmit(event) {
-        event.preventDefault();
-        const name=this.nameInput.current.value;
-        console.log(this.state.name)
-    }
     
     renderNavRoutes() {
         const {notes, folders} = this.state;
@@ -58,8 +52,7 @@ class App extends Component {
                         return <NotePageNav {...routeProps} folder={folder} />;
                     }}
                 />
-                <Route path="/add-folder" 
-                handleSubmit={e=>this.handleSubmit(e)} component={AddFolder} />
+                <Route path="/add-folder"  component={AddFolder} />
                 <Route path="/add-note" component={NotePageNav} />
             </>
         );
