@@ -29,7 +29,6 @@ class App extends Component {
         const folderArr = folderName.split(' ');
         const formattedFolder = folderArr.join('-');
         const folder = { 'id': `${uniqid()}`, 'name': formattedFolder }
-        console.log(folder)
         fetch(`http://localhost:9090/folders`, {
             method: 'POST',
             body: JSON.stringify(folder),
@@ -41,10 +40,17 @@ class App extends Component {
     }
 
     componentDidMount() {
-        // fake date loading from API call
-        setTimeout(() => this.setState(dummyStore), 600);
+        fetch('http://localhost:9090/folders', {
+            method: 'GET',
+            header: {
+                'content-type': 'application/json'
+            }
+        }).then(res=>res.json()).then(response=> this.setState(this.state.folders = response))
+           
+            //this.setState(folders: resArr.Promise))
+        //setTimeout(() => this.setState(dummyStore), 600);
     }
-    
+
     renderNavRoutes() {
         const {notes, folders} = this.state;
         return (
@@ -77,12 +83,14 @@ class App extends Component {
                 <Route 
                     path="/add-folder" 
                     render={() => <AddFolder 
+                    folders={this.state.folders}
                     handleSubmit={this.handleSubmit} />
                 }
                 />
 
                 <Route path="/add-note" 
                     render={() => <AddNote
+                    folders={this.state.folders}
                     handleNoteSubmit={this.handleNoteSubmit} />
                 }
                 />
@@ -91,6 +99,7 @@ class App extends Component {
     }
 
     renderMainRoutes() {
+        console.log(this.state)
         const {notes, folders} = this.state;
         return (
             <>
