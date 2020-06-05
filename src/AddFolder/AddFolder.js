@@ -4,7 +4,8 @@ import NotePageNav from '../NotePageNav/NotePageNav';
 export default class AddFolder extends Component {
    state={}
 
-   handleCreateFolder = () => {
+   handleCreateFolder = (e) => {
+      e.preventDefault();
       const { folderName } = this.state;
       this.props.handleSubmit(folderName);
    }
@@ -28,7 +29,7 @@ export default class AddFolder extends Component {
       return(
          <div className='folder-page-container'>
             <NotePageNav />
-            <form className='add-folder-form' onSubmit={this.handleCreateFolder}>
+            <form className='add-folder-form' onSubmit={e => this.handleCreateFolder(e)}>
                <label htmlFor='folder-name-input'>Folder Name: <span>&emsp;</span></label>
                <input 
                onChange={e => {this.onFolderNameChange(e)}}
@@ -36,7 +37,7 @@ export default class AddFolder extends Component {
                type ='text' 
                name='folderName'
                placeholder='Folder Name' /><br />
-               <button type='button' onClick={this.handleCreateFolder}>Submit</button>
+               <button type='submit' >Submit</button>
             </form>
          </div>
       )

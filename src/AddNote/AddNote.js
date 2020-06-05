@@ -4,7 +4,8 @@ import NotePageNav from '../NotePageNav/NotePageNav'
 export default class AddNote extends Component {
    state = {};
 
-   handleCreateNote = () => {
+   handleCreateNote = (e) => {
+      e.preventDefault();
       const { noteFolder, noteName, noteContent } = this.state;
       if ( noteName ===' ') {
          for(let i = 0; i < 100; i++) {
@@ -21,7 +22,9 @@ export default class AddNote extends Component {
       }
       this.props.handleNoteSubmit(noteFolder, noteName, noteContent);
    }
-
+   componentDidMount() {
+      fetch()
+   }
    onFolderSelect = ({target}) => {
       const { value: noteFolder } = target;
       this.setState({
@@ -44,29 +47,32 @@ export default class AddNote extends Component {
    }
 
    render() {
-      console.log(this.props.names)
       //const options = a map function to get folder names
       return(
          <div className='note-page-container'>
             <NotePageNav />
-            <form>
-               <select name='noteFolder'>
-                  <option>ABCDEFG</option>
+            <form  onSubmit = {e => this.handleCreateNote(e) }>
+               <select name='noteFolder' onChange={e => this.onFolderSelect(e)}>
+                  <option value='ABCDEFG' >ABCDEFG</option>
+                  <option value='A'>A</option>
                   {/*options*/}
                </select>
                <input 
-               id='note-name-input' 
-               type='text' 
-               name='noteName'
-               onChange={e => this.onNoteNameChange(e)}
+                  id='note-name-input' 
+                  type='text' 
+                  name='noteName'
+                  onChange={e => this.onNoteNameChange(e)}
+                  required
                />
+
                <input 
-               id='note-content-input' 
-               type='text' 
-               name='noteContent'
-               onChange={e => this.onNoteContentChange(e)}
+                  id='note-content-input' 
+                  type='text' 
+                  name='noteContent'
+                  onChange={e => this.onNoteContentChange(e)}
+                  required
                />
-               <button type='button' onClick = {this.handleCreateNote}>
+               <button type='submit'>
                   Submit
                </button>
             </form>

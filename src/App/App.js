@@ -13,14 +13,13 @@ import './App.css';
 
 class App extends Component {   
     constructor(props) {
-    super(props);
-    this.nameInput = React.createRef();
- }
-    state = {
-        notes: [],
-        folders: []
-    };
-
+        super(props);
+        this.state = {
+            notes: [],
+            folders: []
+        };
+    }
+    
     handleNoteSubmit(noteFolder, noteName, noteContent) {
         console.log(noteName,'is in', noteFolder, 'and has content', noteContent)
     }
@@ -32,13 +31,13 @@ class App extends Component {
         const folder = { 'id': `${uniqid()}`, 'name': formattedFolder }
         console.log(folder)
         fetch(`http://localhost:9090/folders`, {
-        method: 'POST',
-        body: JSON.stringify(folder),
-        headers: {
-        'content-type': 'application/json'
-        }
-    }
-        ).then(res => console.log(res.json()))
+            method: 'POST',
+            body: JSON.stringify(folder),
+            headers: {
+                'content-type': 'application/json'
+            }
+        })
+        .then(res => console.log(res.json()))
     }
 
     componentDidMount() {
