@@ -48,15 +48,13 @@ export default class AddNote extends Component {
 
    render() {
       const folderList = this.props.folders;
-      const folderArr = folderList.map((folder) => `<option value=${folder.name}>${folder.name}</option>`)
+      const folderArr = folderList.map((folder) => <option value="{folder.name}">{folder.name}</option>)
       console.log(folderArr);
       return(
          <div className='note-page-container'>
             <NotePageNav />
             <form  onSubmit = {e => this.handleCreateNote(e) }>
                <select name='noteFolder' onChange={e => this.onFolderSelect(e)}>
-                  <option value='ABCDEFG' >ABCDEFG</option>
-                  <option value='A'>A</option>
                   {folderArr}
                </select>
                <input 
