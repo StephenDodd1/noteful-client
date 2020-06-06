@@ -6,29 +6,16 @@ export default class AddNote extends Component {
 
    handleCreateNote = (e) => {
       e.preventDefault();
-      const { noteFolder, noteName, noteContent, folderId } = this.state;
-      if ( noteName ===' ') {
-         for(let i = 0; i < 100; i++) {
-            if(this.props.notes[i].name === `newNote${i}`){
-               continue;
-            }
-            if (!this.props.notes[`newNote${i}`]) {
-               console.log(`newNote${i}`)
-               this.setState({
-                  noteName: `newNote${i}`
-               })
-            }
-         }
-      }
-      this.props.handleNoteSubmit(noteFolder, noteName, noteContent, folderId);
+      const { noteName, noteContent, folderId } = this.state;
+      this.props.handleNoteSubmit( noteName, noteContent, folderId );
    }
    componentDidMount() {
      
    }
    onFolderSelect = ({target}) => {
-      const { value: noteFolder } = target;
+      const { value: folderId } = target;
       this.setState({
-         noteFolder
+         folderId
       })
    }
 
@@ -48,15 +35,17 @@ export default class AddNote extends Component {
 
    render() {
       const folderList = this.props.folders;
-      const folderArr = folderList.map((folder) => <option value={(folder.name).toString()} id={folder.id.toString()}>{folder.name}</option>)
+      const folderArr = folderList.map((folder) => <option value={(folder.id).toString()} name={folder.id.toString()} id={folder.id.toString()}>{folder.name}</option>)
       console.log(folderArr);
       return(
          <div className='note-page-container'>
             <NotePageNav />
             <form  onSubmit = {e => this.handleCreateNote(e) }>
-               <select name='noteFolder' onChange={e => this.onFolderSelect(e)}>
+               <select name='folderId' onChange={e => this.onFolderSelect(e)} required >
+                  <option value='select a folder...' >Select a folder...</option>
                   {folderArr}
                </select>
+               <label htmlFor='noteName'>Note Name</label>
                <input 
                   id='note-name-input' 
                   type='text' 
@@ -64,7 +53,7 @@ export default class AddNote extends Component {
                   onChange={e => this.onNoteNameChange(e)}
                   required
                />
-
+               <label htmlFor='noteContent'><br/>Content</label>
                <input 
                   id='note-content-input' 
                   type='text' 

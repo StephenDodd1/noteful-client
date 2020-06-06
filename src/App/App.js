@@ -20,15 +20,25 @@ class App extends Component {
         };
     }
     
-    handleNoteSubmit(noteFolder, noteName, noteContent, folderId) {
+    handleNoteSubmit( noteName, noteContent, folderId ) {
         var uniqid = require('uniqid');
-        console.log(noteName,'is in', noteFolder, 'and has content', noteContent);
-        const notes = { 'content': {noteContent}, 'folderId': {folderId}, 'modified': Date(), 'id': `${uniqid()}`, 'name': {noteName}}
+        console.log(noteName,'is in', folderId, 'and has content', noteContent);
+        const notes = { 'content': `${noteContent.toString()}`, 'folderId': `${folderId.toString()}`, 'modified': `${Date().toString()}`, 'id': `${uniqid()}`, 'name': `${noteName.toString()}`}
         fetch('http://localhost:9090/notes', {
             method: 'POST',
             body: JSON.stringify(notes),
-        }
-        )
+            headers: {
+                'content-type': 'application/json'
+            }
+        })
+        .then(res => {
+            if(!res.ok){
+                throw new Error('Something went wrong');
+            }
+            return res;
+        })
+        .then(res=>console.log(res.json()))
+        .catch(err => console.log('this is the error:', err))
     }
 
     handleSubmit(folderName) {
@@ -43,7 +53,14 @@ class App extends Component {
                 'content-type': 'application/json'
             }
         })
+        .then(res => {
+            if(!res.ok){
+                throw new Error('Something went wrong');
+            }
+            return res;
+        })
         .then(res => console.log(res.json()))
+        .catch(err => console.log('this is the error:', err))
     }
 
     componentDidMount() {
@@ -59,7 +76,7 @@ class App extends Component {
             header: {
                 'content-type': 'application/json'
             }
-        }).then(res=>res.json()).then(response=> this.setState(this.state.notes = response))    
+        }).then(res=>res.json()).then(response=> this.setState(this.state.notes = response));
         
         //this.setState(folders: resArr.Promise))
         //setTimeout(() => this.setState(dummyStore), 600);
