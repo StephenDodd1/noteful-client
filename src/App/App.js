@@ -20,8 +20,15 @@ class App extends Component {
         };
     }
     
-    handleNoteSubmit(noteFolder, noteName, noteContent) {
-        console.log(noteName,'is in', noteFolder, 'and has content', noteContent)
+    handleNoteSubmit(noteFolder, noteName, noteContent, folderId) {
+        var uniqid = require('uniqid');
+        console.log(noteName,'is in', noteFolder, 'and has content', noteContent);
+        const notes = { 'content': {noteContent}, 'folderId': {folderId}, 'modified': Date(), 'id': `${uniqid()}`, 'name': {noteName}}
+        fetch('http://localhost:9090/notes', {
+            method: 'POST',
+            body: JSON.stringify(notes),
+        }
+        )
     }
 
     handleSubmit(folderName) {
@@ -45,9 +52,16 @@ class App extends Component {
             header: {
                 'content-type': 'application/json'
             }
-        }).then(res=>res.json()).then(response=> this.setState(this.state.folders = response))
+        }).then(res=>res.json()).then(response=> this.setState(this.state.folders = response));
            
-            //this.setState(folders: resArr.Promise))
+        fetch('http://localhost:9090/notes', {
+            method: 'GET',
+            header: {
+                'content-type': 'application/json'
+            }
+        }).then(res=>res.json()).then(response=> this.setState(this.state.notes = response))    
+        
+        //this.setState(folders: resArr.Promise))
         //setTimeout(() => this.setState(dummyStore), 600);
     }
 

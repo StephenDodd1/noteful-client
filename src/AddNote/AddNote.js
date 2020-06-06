@@ -6,7 +6,7 @@ export default class AddNote extends Component {
 
    handleCreateNote = (e) => {
       e.preventDefault();
-      const { noteFolder, noteName, noteContent } = this.state;
+      const { noteFolder, noteName, noteContent, folderId } = this.state;
       if ( noteName ===' ') {
          for(let i = 0; i < 100; i++) {
             if(this.props.notes[i].name === `newNote${i}`){
@@ -20,7 +20,7 @@ export default class AddNote extends Component {
             }
          }
       }
-      this.props.handleNoteSubmit(noteFolder, noteName, noteContent);
+      this.props.handleNoteSubmit(noteFolder, noteName, noteContent, folderId);
    }
    componentDidMount() {
      
@@ -48,7 +48,7 @@ export default class AddNote extends Component {
 
    render() {
       const folderList = this.props.folders;
-      const folderArr = folderList.map((folder) => <option value="{folder.name}">{folder.name}</option>)
+      const folderArr = folderList.map((folder) => <option value={(folder.name).toString()} id={folder.id.toString()}>{folder.name}</option>)
       console.log(folderArr);
       return(
          <div className='note-page-container'>
