@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import NotePageNav from '../NotePageNav/NotePageNav'
+import ValidationError from '../ValidationError/ValidationError'
 
 export default class AddNote extends Component {
-   state = {};
+   state = {
+      noteName: ''
+   };
 
    handleCreateNote = (e) => {
       e.preventDefault();
@@ -24,6 +27,7 @@ export default class AddNote extends Component {
 
    onNoteNameChange = ({target}) => {
       const { value: noteName } = target;
+      this.validateName()
       this.setState({
          noteName
       })
@@ -34,6 +38,15 @@ export default class AddNote extends Component {
       this.setState({
          noteContent
       })
+   }
+
+   validateName() {
+      const name = this.state.noteName;
+      if (name.length === 0) {
+        return 'Name is required';
+      } else if (name.length < 3) {
+        return 'Name must be at least 3 characters long';
+      }
    }
 
    render() {
@@ -56,6 +69,7 @@ export default class AddNote extends Component {
                   onChange={e => this.onNoteNameChange(e)}
                   required
                />
+               <ValidationError message={this.validateName()}/>
                <label htmlFor='noteContent'><br/>Content</label>
                <input 
                   id='note-content-input' 
