@@ -29,15 +29,17 @@ export default class AddFolder extends Component {
 
       return(
          <div className='folder-page-container'>
-            <NotePageNav />
+            <NotePageNav 
+               handleCancel ={this.handleCancel} />
             <form className='add-folder-form' onSubmit={e => this.handleCreateFolder(e)}>
                <label htmlFor='folder-name-input'>Folder Name: <span>&emsp;</span></label>
                <input 
-               onChange={e => {this.onFolderNameChange(e)}}
-               id='folder-name-input'
-               type ='text' 
-               name='folderName'
-               placeholder='Folder Name' /><br />
+                  onChange={e => {this.onFolderNameChange(e)}}
+                  id='folder-name-input'
+                  type ='text' 
+                  name='folderName'
+                  placeholder='Folder Name' 
+               /><br />
                <button type='submit' >Submit</button>
             </form>
          </div>

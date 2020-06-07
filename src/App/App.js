@@ -116,7 +116,8 @@ class App extends Component {
                     path="/add-folder" 
                     render={() => <AddFolder 
                     folders={this.state.folders}
-                    handleSubmit={this.handleSubmit} />
+                    handleSubmit={this.handleSubmit}
+                />
                 }
                 />
 
@@ -131,7 +132,6 @@ class App extends Component {
     }
 
     renderMainRoutes() {
-        console.log(this.state)
         const {notes, folders} = this.state;
         return (
             <>
