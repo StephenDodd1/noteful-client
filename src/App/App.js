@@ -64,22 +64,23 @@ class App extends Component {
     }
 
     componentDidMount() {
+    Promise.all([
         fetch('http://localhost:9090/folders', {
             method: 'GET',
             header: {
                 'content-type': 'application/json'
             }
-        }).then(res=>res.json()).then(response=> this.setState(this.state.folders = response));
-           
-        fetch('http://localhost:9090/notes', {
+        })
+        .then(res=>res.json()).then(response => this.setState(this.state.folders = response)),
+            fetch('http://localhost:9090/notes', {
             method: 'GET',
             header: {
                 'content-type': 'application/json'
             }
-        }).then(res=>res.json()).then(response=> this.setState(this.state.notes = response));
-        
-        //this.setState(folders: resArr.Promise))
-        //setTimeout(() => this.setState(dummyStore), 600);
+        })
+        .then(res=>res.json()).then(response => this.setState(this.state.notes = response)),
+        console.log(this.state)
+        ])  
     }
 
     renderNavRoutes() {
@@ -121,7 +122,7 @@ class App extends Component {
 
                 <Route path="/add-note" 
                     render={() => <AddNote
-                    folders={this.state.folders}
+                    state={this.state}
                     handleNoteSubmit={this.handleNoteSubmit} />
                 }
                 />

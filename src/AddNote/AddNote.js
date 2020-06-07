@@ -6,12 +6,15 @@ export default class AddNote extends Component {
 
    handleCreateNote = (e) => {
       e.preventDefault();
+      const appNotes = this.props.state.notes;
       const { noteName, noteContent, folderId } = this.state;
+      for(let i = 0; i < appNotes.length; i++) {
+         if(noteName === appNotes[i].name) {
+         return (alert('There is already a folder with this name.'))}
+         }
       this.props.handleNoteSubmit( noteName, noteContent, folderId );
    }
-   componentDidMount() {
-     
-   }
+   
    onFolderSelect = ({target}) => {
       const { value: folderId } = target;
       this.setState({
@@ -34,7 +37,7 @@ export default class AddNote extends Component {
    }
 
    render() {
-      const folderList = this.props.folders;
+      const folderList = this.props.state.folders;
       const folderArr = folderList.map((folder) => <option value={(folder.id).toString()} name={folder.id.toString()} id={folder.id.toString()}>{folder.name}</option>)
       console.log(folderArr);
       return(
