@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import NotePageNav from '../NotePageNav/NotePageNav'
-import ValidationError from '../ValidationError/ValidationError'
+import NotePageNav from '../NotePageNav/NotePageNav';
+import ValidationError from '../ValidationError/ValidationError';
+import PropTypes from 'prop-types'
 
 export default class AddNote extends Component {
    state = {
@@ -85,4 +86,8 @@ export default class AddNote extends Component {
          </div>
       )
    }
+}
+
+AddNote.propTypes = {
+   state: PropTypes.object
 }
