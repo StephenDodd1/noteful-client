@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import NotePageNav from '../NotePageNav/NotePageNav';
+import PropTypes from 'prop-types';
 
 export default class AddFolder extends Component {
    state={}
@@ -42,4 +43,9 @@ export default class AddFolder extends Component {
          </div>
       )
    }
+}
+
+AddFolder.propTypes = {
+   folders: PropTypes.array,
+   handleSubmit: PropTypes.func
 }

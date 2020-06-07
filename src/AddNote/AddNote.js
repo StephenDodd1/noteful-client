@@ -89,5 +89,6 @@ export default class AddNote extends Component {
 }
 
 AddNote.propTypes = {
-   state: PropTypes.object
+   state: PropTypes.object,
+   handleNoteSubmit: PropTypes.func
 }
