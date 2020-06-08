@@ -1,21 +1,21 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import CircleButton from '../CircleButton/CircleButton'
+import NavCircleButton from '../CircleButton/CircleButton'
 import './NotePageNav.css'
 
 export default function NotePageNav(props) {
   return (
     <div className='NotePageNav'>
-      <CircleButton
+      <NavCircleButton
         tag='button'
         role='link'
-        onClick = {props.handleCancel()}
+        onClick = {props.handleCancel}
         className='NotePageNav__back-button'
       >
         <FontAwesomeIcon icon='chevron-left' />
         <br />
         Back
-      </CircleButton>
+      </NavCircleButton>
       {props.folder && (
         <h3 className='NotePageNav__folder-name'>
           {props.folder.name}

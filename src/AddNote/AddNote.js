@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import NotePageNav from '../NotePageNav/NotePageNav';
 import ValidationError from '../ValidationError/ValidationError';
 import PropTypes from 'prop-types';
-import {withRouter} from 'react-router-dom'
+import {withRouter} from 'react-router'
 
 export default class AddNote extends Component {
    constructor(props) {
@@ -12,11 +12,7 @@ export default class AddNote extends Component {
       };
    }
 
-   static defaultProps = {
-      history: {
-         push: () => {}
-      }
-   }
+ 
 
    handleCreateNote = (e) => {
       e.preventDefault();
@@ -29,9 +25,7 @@ export default class AddNote extends Component {
       this.props.handleNoteSubmit( noteName, noteContent, folderId );
    }
 
-   handleCancel = () => {
-      this.props.history.push('/')
-   }
+
 
    onFolderSelect = ({target}) => {
       const { value: folderId } = target;
@@ -78,7 +72,7 @@ export default class AddNote extends Component {
       return(
          <div className='note-page-container'>
             <NotePageNav 
-               handleCancel = {this.handleCancel} />
+               handleCancel = {this.props.handleCancel} />
             <form  onSubmit = {e => this.handleCreateNote(e) }>
                <select name='folderId' onChange={e => this.onFolderSelect(e)} required >
                   <option key='0' value='select a folder...' >Select a folder...</option>

@@ -7,7 +7,7 @@ import NoteListMain from '../NoteListMain/NoteListMain';
 import NotePageMain from '../NotePageMain/NotePageMain';
 import AddFolder from '../AddFolder/AddFolder';
 import AddNote from '../AddNote/AddNote';
-import dummyStore from '../dummy-store';
+import { withRouter } from 'react-router'
 import {getNotesForFolder, findNote, findFolder} from '../notes-helpers';
 import './App.css';
 
@@ -18,6 +18,17 @@ class App extends Component {
             notes: [],
             folders: []
         };
+    }
+
+    static defaultProps = {
+        history: {
+            push: () => {}
+        }
+    }
+
+    handleCancel = () => {
+        console.log(this.props.history)
+        this.props.history.push('/')
     }
     
     handleNoteSubmit( noteName, noteContent, folderId ) {
@@ -126,6 +137,7 @@ class App extends Component {
                     render={() => <AddNote
                         state={this.state}
                         handleNoteSubmit={this.handleNoteSubmit} 
+                        handleCancel={this.handleCancel}
                     />
                 }
                 />
@@ -185,4 +197,4 @@ class App extends Component {
     }
 }
 
-export default App;
+export default withRouter(App);
