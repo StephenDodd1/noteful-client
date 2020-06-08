@@ -108,23 +108,25 @@ class App extends Component {
                         const {noteId} = routeProps.match.params;
                         const note = findNote(notes, noteId) || {};
                         const folder = findFolder(folders, note.folderId);
-                        return <NotePageNav {...routeProps} folder={folder} />
+                        return <NotePageNav {...routeProps} folder={folder} 
+                    />
                     }}
                 />
 
                 <Route 
                     path="/add-folder" 
                     render={() => <AddFolder 
-                    folders={this.state.folders}
-                    handleSubmit={this.handleSubmit}
-                />
+                        folders={this.state.folders}
+                        handleSubmit={this.handleSubmit}
+                    />
                 }
                 />
 
                 <Route path="/add-note" 
                     render={() => <AddNote
-                    state={this.state}
-                    handleNoteSubmit={this.handleNoteSubmit} />
+                        state={this.state}
+                        handleNoteSubmit={this.handleNoteSubmit} 
+                    />
                 }
                 />
             </>

@@ -9,7 +9,7 @@ export default function NotePageNav(props) {
       <CircleButton
         tag='button'
         role='link'
-        onClick = {this.props.handleCancel}
+        onClick = {props.handleCancel()}
         className='NotePageNav__back-button'
       >
         <FontAwesomeIcon icon='chevron-left' />
