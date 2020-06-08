@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import NotePageNav from '../NotePageNav/NotePageNav';
 import ValidationError from '../ValidationError/ValidationError';
 import PropTypes from 'prop-types';
-import {withRouter} from 'react-router'
+import {withRouter} from 'react-router';
+import FetchError from '../FetchError/FetchError'
 
 export default class AddNote extends Component {
    constructor(props) {
@@ -73,10 +74,13 @@ export default class AddNote extends Component {
          <div className='note-page-container'>
             <NotePageNav 
                handleCancel = {this.props.handleCancel} />
+            
             <form  onSubmit = {e => this.handleCreateNote(e) }>
                <select name='folderId' onChange={e => this.onFolderSelect(e)} required >
                   <option key='0' value='select a folder...' >Select a folder...</option>
-                  {folderArr}
+                  <FetchError>
+                     {folderArr}
+                  </FetchError>
                </select>
                <label htmlFor='noteName'>Note Name</label>
                <input 

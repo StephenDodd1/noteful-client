@@ -10,6 +10,7 @@ import AddNote from '../AddNote/AddNote';
 import { withRouter } from 'react-router'
 import {getNotesForFolder, findNote, findFolder} from '../notes-helpers';
 import './App.css';
+import FetchError from '../FetchError/FetchError'
 
 class App extends Component {   
     constructor(props) {
@@ -132,13 +133,13 @@ class App extends Component {
                     />
                 }
                 />
-
+                
                 <Route path="/add-note" 
-                    render={() => <AddNote
+                    render={() => <FetchError><AddNote
                         state={this.state}
                         handleNoteSubmit={this.handleNoteSubmit} 
                         handleCancel={this.handleCancel}
-                    />
+                    /></FetchError>
                 }
                 />
             </>
