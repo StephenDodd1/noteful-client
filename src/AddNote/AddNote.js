@@ -24,6 +24,7 @@ export default class AddNote extends Component {
             return (alert('There is already a folder with this name.'))}
          }
       this.props.handleNoteSubmit( noteName, noteContent, folderId );
+      this.props.handleCancel()
    }
 
 

@@ -30,6 +30,7 @@ class App extends Component {
     handleCancel = () => {
         console.log(this.props.history)
         this.props.history.push('/')
+        window.location.reload(true)
     }
     
     handleNoteSubmit( noteName, noteContent, folderId ) {
