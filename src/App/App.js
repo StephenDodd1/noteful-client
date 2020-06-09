@@ -27,6 +27,10 @@ class App extends Component {
         }
     }
 
+    deleteNote({target}) {
+        console.log({target})
+    }
+
     handleCancel = () => {
         console.log(this.props.history)
         this.props.history.push('/')
@@ -166,6 +170,7 @@ class App extends Component {
                                 <NoteListMain
                                     {...routeProps}
                                     notes={notesForFolder}
+                                    deleteNote={this.deleteNote}
                                 />
                             );
                         }}
