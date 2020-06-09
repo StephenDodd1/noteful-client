@@ -74,15 +74,17 @@ export default class AddNote extends Component {
          <div className='note-page-container'>
             <NotePageNav 
                handleCancel = {this.props.handleCancel} />
-            
-            <form  onSubmit = {e => this.handleCreateNote(e) }>
-               <select name='folderId' onChange={e => this.onFolderSelect(e)} required >
+            <label htmlFor='add-note-form'>Add a Note:</label>
+            <form  id='add-note-form'
+               onSubmit = {e => this.handleCreateNote(e) }>
+               <label htmlFor='folderId'>Folder: </label>
+               <select id='folderId' name='folderId' onChange={e => this.onFolderSelect(e)} required >
                   <option key='0' value='select a folder...' >Select a folder...</option>
                   <FetchError>
                      {folderArr}
                   </FetchError>
-               </select>
-               <label htmlFor='noteName'>Note Name</label>
+               </select><br/>
+               <label htmlFor='note-name-input'>Note Name: </label>
                <input 
                   id='note-name-input' 
                   type='text' 
@@ -91,7 +93,7 @@ export default class AddNote extends Component {
                   required
                />
                <ValidationError message={this.validateName()}/>
-               <label htmlFor='noteContent'><br/>Content</label>
+               <label htmlFor='note-content-input'><br/>Content: </label>
                <input 
                   id='note-content-input' 
                   type='text' 
