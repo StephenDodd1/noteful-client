@@ -28,7 +28,11 @@ class App extends Component {
     }
 
     deleteNote({target}) {
-        console.log({target})
+        console.log(target.id, this.state.notes[0].id)
+        let newNoteList = this.state.notes.filter(note => 
+            note.id !== target.id)
+        this.setState(this.state.notes = newNoteList)
+        console.log(this.state.notes)
     }
 
     handleCancel = () => {
@@ -170,7 +174,7 @@ class App extends Component {
                                 <NoteListMain
                                     {...routeProps}
                                     notes={notesForFolder}
-                                    deleteNote={this.deleteNote}
+                                    deleteNote={e=>this.deleteNote(e)}
                                 />
                             );
                         }}

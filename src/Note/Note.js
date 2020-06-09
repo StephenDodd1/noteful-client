@@ -13,7 +13,7 @@ export default function Note(props) {
           {props.name}
         </Link>
       </h2>
-      <button className='Note__delete' type='button' onClick={props.deleteNote}>
+      <button className='Note__delete' type='button' id={props.id} onClick={props.deleteNote}>
         <FontAwesomeIcon icon='trash-alt' />
         {' '}
         remove
