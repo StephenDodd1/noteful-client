@@ -37,9 +37,8 @@ class App extends Component {
         console.log(indexOfDeletedNote)
         let newNoteList = notes.filter(note => note.id !== target.id)
         this.setState(newNoteList)
-        fetch(`http://localhost:9090/notes/1`, {
+        fetch(`http://localhost:9090/notes/${target.id}`, {
             method: 'DELETE',
-            body: JSON.stringify([indexOfDeletedNote]),
             headers: {
                 'content-type': 'application/json'
             }
@@ -50,7 +49,8 @@ class App extends Component {
             }
             return res;
         })
-        .catch(err => console.log('this is the error:', err))
+        .catch(err => console.log('this is the error:', err));
+        window.location.reload(true)
     }
 
     handleCancel = () => {
@@ -60,9 +60,8 @@ class App extends Component {
     }
     
     handleNoteSubmit( noteName, noteContent, folderId ) {
-        var uniqid = require('uniqid');
-        console.log(noteName,'is in', folderId, 'and has content', noteContent);
-        const notes = { 'content': `${noteContent.toString()}`, 'folderId': `${folderId.toString()}`, 'modified': `${Date().toString()}`, 'id': `${uniqid()}`, 'name': `${noteName.toString()}`}
+        console.log(noteName,'has content', noteContent);
+        const notes = { 'content': `${noteContent.toString()}`, 'folderId': `${folderId.toString()}`, 'modified': `${Date().toString()}`, 'name': `${noteName.toString()}`}
         fetch('http://localhost:9090/notes', {
             method: 'POST',
             body: JSON.stringify(notes),
@@ -81,10 +80,9 @@ class App extends Component {
     }
 
     handleSubmit(folderName) {
-        var uniqid = require('uniqid');
         const folderArr = folderName.split(' ');
         const formattedFolder = folderArr.join('-');
-        const folder = { 'id': `${uniqid()}`, 'name': formattedFolder }
+        const folder = {'name': formattedFolder }
         fetch(`http://localhost:9090/folders`, {
             method: 'POST',
             body: JSON.stringify(folder),
