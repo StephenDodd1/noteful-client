@@ -155,6 +155,7 @@ class App extends Component {
                     render={() => <AddFolder 
                         folders={this.state.folders}
                         handleSubmit={this.handleSubmit}
+                        handleCancel={this.handleCancel}
                     />
                 }
                 />
