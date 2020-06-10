@@ -37,6 +37,20 @@ class App extends Component {
         console.log(indexOfDeletedNote)
         let newNoteList = notes.filter(note => note.id !== target.id)
         this.setState(newNoteList)
+        fetch(`http://localhost:9090/notes/1`, {
+            method: 'DELETE',
+            body: JSON.stringify([indexOfDeletedNote]),
+            headers: {
+                'content-type': 'application/json'
+            }
+        })
+        .then(res => {
+            if(!res.ok){
+                throw new Error('Something went wrong with deletion');
+            }
+            return res;
+        })
+        .catch(err => console.log('this is the error:', err))
     }
 
     handleCancel = () => {
