@@ -28,11 +28,15 @@ class App extends Component {
     }
 
     deleteNote({target}) {
-        console.log(target.id, this.state.notes[0].id)
-        let newNoteList = this.state.notes.filter(note => 
-            note.id !== target.id)
-        this.setState(this.state.notes = newNoteList)
-        console.log(this.state.notes)
+        const notes = this.state.notes;
+        console.log(notes)
+        let deletedNote = notes.find(note => 
+            note.id === target.id)
+        console.log(deletedNote)
+        let indexOfDeletedNote = notes.findIndex(item => deletedNote === item)
+        console.log(indexOfDeletedNote)
+        let newNoteList = notes.filter(note => note.id !== target.id)
+        this.setState(newNoteList)
     }
 
     handleCancel = () => {
