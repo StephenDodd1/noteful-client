@@ -9,8 +9,9 @@ export default function NoteListNav(props) {
   return (
     <div className='NoteListNav'>
       <ul className='NoteListNav__list'>
-        {props.folders.map(folder =>
-          <li key={folder.id}>
+        {props.folders.map(folder => {
+          console.log(folder.id)
+          return <li key={folder.id}>
             <NavLink
               className='NoteListNav__folder-link'
               to={`/folder/${folder.id}`}
@@ -21,7 +22,7 @@ export default function NoteListNav(props) {
               {folder.name}
             </NavLink>
           </li>
-        )}
+        })}
       </ul>
       <div className='NoteListNav__button-wrapper'>
         <CircleButton

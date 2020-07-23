@@ -9,11 +9,11 @@ export default class AddNote extends Component {
    constructor(props) {
       super(props);
       this.state = {
-         noteName: ''
+         noteName: '',
+         noteContent: '',
+         folderId: ''
       };
    }
-
- 
 
    handleCreateNote = (e) => {
       e.preventDefault();

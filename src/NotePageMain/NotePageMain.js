@@ -7,6 +7,7 @@ export default function NotePageMain(props) {
     <section className='NotePageMain'>
       <Note
         id={props.note.id}
+        folder={props.note.folder}
         name={props.note.name}
         modified={props.note.modified}
       />

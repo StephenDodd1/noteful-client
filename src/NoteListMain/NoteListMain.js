@@ -16,6 +16,7 @@ export default function NoteListMain(props) {
             <Note
               id={note.id}
               name={note.name}
+              folderId={note.id}
               modified={note.modified}
               deleteNote={props.deleteNote}
             />

@@ -29,15 +29,10 @@ class App extends Component {
 
     deleteNote({target}) {
         const notes = this.state.notes;
-        console.log(notes)
-        let deletedNote = notes.find(note => 
-            note.id === target.id)
-        console.log(deletedNote)
-        let indexOfDeletedNote = notes.findIndex(item => deletedNote === item)
-        console.log(indexOfDeletedNote)
         let newNoteList = notes.filter(note => note.id !== target.id)
         this.setState(newNoteList)
-        fetch(`http://localhost:9090/notes/${target.id}`, {
+        console.log(target.id)
+        fetch(`http://localhost:8000/api/notes/${target.id}`, {
             method: 'DELETE',
             headers: {
                 'content-type': 'application/json'
@@ -61,13 +56,13 @@ class App extends Component {
     
     handleNoteSubmit( noteName, noteContent, folderId ) {
         console.log(noteName,'has content', noteContent);
-        const notes = { 'content': `${noteContent.toString()}`, 'folderId': `${folderId.toString()}`, 'modified': `${Date().toString()}`, 'name': `${noteName.toString()}`}
-        fetch('http://localhost:9090/notes', {
+        const notes = { 'note': `${noteContent.toString()}`, 'folder': `${folderId.toString()}`, 'modified': `${Date().toString()}`, 'name': `${noteName.toString()}`}
+        fetch('http://localhost:8000/api/notes', {
             method: 'POST',
             body: JSON.stringify(notes),
             headers: {
                 'content-type': 'application/json'
-            }
+            },
         })
         .then(res => {
             if(!res.ok){
@@ -83,7 +78,7 @@ class App extends Component {
         const folderArr = folderName.split(' ');
         const formattedFolder = folderArr.join('-');
         const folder = {'name': formattedFolder }
-        fetch(`http://localhost:9090/folders`, {
+        fetch(`http://localhost:8000/api/folder`, {
             method: 'POST',
             body: JSON.stringify(folder),
             headers: {
@@ -102,26 +97,26 @@ class App extends Component {
 
     componentDidMount() {
     Promise.all([
-        fetch('http://localhost:9090/folders', {
+        fetch('http://localhost:8000/api/folder', {
             method: 'GET',
             header: {
                 'content-type': 'application/json'
             }
         })
         .then(res=>res.json()).then(response => this.setState(this.state.folders = response)),
-            fetch('http://localhost:9090/notes', {
+            fetch('http://localhost:8000/api/notes', {
             method: 'GET',
             header: {
                 'content-type': 'application/json'
             }
         })
         .then(res=>res.json()).then(response => this.setState(this.state.notes = response)),
-        console.log(this.state)
         ])  
     }
 
     renderNavRoutes() {
         const {notes, folders} = this.state;
+        console.log(this.state.notes)
         return (
             <>
                 {['/', '/folder/:folderId'].map(path => (
@@ -183,6 +178,7 @@ class App extends Component {
                         path={path}
                         render={routeProps => {
                             const {folderId} = routeProps.match.params;
+                            console.log(folderId)
                             const notesForFolder = getNotesForFolder(
                                 notes,
                                 folderId
